@@ -298,4 +298,7 @@ gradle-app.setting
 ### Gradle Patch ###
 **/build/
 
+### Javac Classpath ###
+.javac-classpath
+
 # End of https://www.gitignore.io/api/java,windows,macos,linux,intellij,eclipse,netbeans,maven,gradle

@@ -1,0 +1,37 @@
+{
+  "schemaVersion": 1,
+  "id": "hyperfabric",
+  "version": "${version}",
+
+  "name": "HyperFabric",
+  "description": "HyperFabric is a mod developed for my Minecraft server HyperCubeMC to add essential features such as custom commands.",
+  "authors": [
+    "Justsnoopy30"
+  ],
+  "contact": {
+    "email": "justsnoopy30@hypercubemc.cf",
+    "discord": "https://discord.gg/9nJDfss",
+    "homepage": "https://hypercubemc.cf",
+    "issues": "https://github.com/hypercubemc-github/HyperFabric/issues",
+    "sources": "https://github.com/hypercubemc-github/HyperFabric"
+  },
+
+  "license": "AGPL-3.0",
+  "icon": "assets/hyperfabric/icon.png",
+
+  "environment": "server",
+  "entrypoints": {
+    "main": [
+      "net.hypercubemc.hyperfabric.Mod"
+    ]
+  },
+  "mixins": [
+    "hyperfabric.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.7.8",
+    "fabric": "*",
+    "minecraft": ">=1.16-alpha.20.13.b"
+  }
+}
