@@ -301,4 +301,7 @@ gradle-app.setting
 ### Javac Classpath ###
 .javac-classpath
 
+### Run Files ###
+run/
+
 # End of https://www.gitignore.io/api/java,windows,macos,linux,intellij,eclipse,netbeans,maven,gradle
