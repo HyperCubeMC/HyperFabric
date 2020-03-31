@@ -12,6 +12,10 @@ archivesBaseName = project.archives_base_name
 version = project.mod_version
 group = project.maven_group
 
+repositories {
+	mavenCentral()
+}
+
 dependencies {
 	//to change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
@@ -22,6 +26,10 @@ dependencies {
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 	// PSA: Some older mods, compiled on Loom 0.2.1, might have outdated Maven POMs.
 	// You may need to force-disable transitiveness on them.
+	include 'net.java.dev.jna:jna:5.5.0'
+	implementation 'net.java.dev.jna:jna:5.5.0'
+	include 'net.java.dev.jna:jna-platform:5.5.0'
+	implementation 'net.java.dev.jna:jna-platform:5.5.0'
 }
 
 processResources {
@@ -61,6 +69,7 @@ task printClasspath {
     }
 }
 
+
 jar {
 	from "LICENSE"
 }
@@ -85,3 +94,4 @@ publishing {
 		// mavenLocal()
 	}
 }
+
