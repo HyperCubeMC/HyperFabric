@@ -24,8 +24,11 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.text.LiteralText;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Mod implements ModInitializer {
+	Logger log = LogManager.getLogger("hyperfabric");
 	@Override
 	public void onInitialize() {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
@@ -35,7 +38,7 @@ public class Mod implements ModInitializer {
 
 		CommandRegistry.INSTANCE.register(false, this::register);
 		String version = FabricLoader.getInstance().getModContainer("hyperfabric").get().getMetadata().getVersion().getFriendlyString();
-		System.out.println(String.format("Loaded HyperFabric v%s successfully!",version));
+		log.info("[HyperFabric] Loaded HyperFabric v" + version + " successfully!");
 	}
 
 	public void register(CommandDispatcher<ServerCommandSource> commandDispatcher) {
