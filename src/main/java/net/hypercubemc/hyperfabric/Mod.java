@@ -24,6 +24,7 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.text.LiteralText;
+import net.minecraft.text.Style;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import static net.hypercubemc.hyperfabric.ansiCodes.*;
@@ -71,8 +72,8 @@ public class Mod implements ModInitializer {
 					// The command "hyperfabric" to execute if there are no arguments.
 					.executes(ctx -> {
 						ServerCommandSource source = ctx.getSource();
-						source.sendFeedback(new LiteralText("HyperFabric Help:"), false);
-						source.sendFeedback(new LiteralText("Arguments: version"), false);
+						source.sendFeedback(new LiteralText("HyperFabric Help:").setStyle(new Style().setColor(Formatting.BLUE)), false);
+						source.sendFeedback(new LiteralText("Arguments: version").setStyle(new Style().setColor(Formatting.BLUE)), false);
 						return 1;
 					})
 			);
@@ -81,7 +82,7 @@ public class Mod implements ModInitializer {
 	public int hyperfabric(CommandContext<ServerCommandSource> ctx) throws CommandSyntaxException {
 			ServerCommandSource source = ctx.getSource();
 			String version = FabricLoader.getInstance().getModContainer("hyperfabric").get().getMetadata().getVersion().getFriendlyString();
-			source.sendFeedback(new LiteralText("This server is running Justsnoopy30's HyperFabric Server Mod v" + version), false);
+			source.sendFeedback(new LiteralText("This server is running Justsnoopy30's HyperFabric Server Mod v" + version).setStyle(new Style().setColor(Formatting.GREEN)), false);
 			return 1;
 	}
 }
