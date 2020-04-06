@@ -1,6 +1,6 @@
 package net.hypercubemc.hyperfabric;
 
-public class ansiCodes {
+public class AnsiCodes {
     public static final String formatReset = "\033[0m";
     public static final String formatBold = "\033[1m";
     public static final String formatLight = "\033[2m";

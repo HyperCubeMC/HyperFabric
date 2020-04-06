@@ -15,6 +15,7 @@ import static net.minecraft.server.command.CommandManager.literal; // literal("f
 import static net.minecraft.server.command.CommandManager.argument; // argument("bar", word())
 import static net.minecraft.server.command.CommandManager.*; // Import everything
 
+import net.hypercubemc.hyperfabric.commands.HyperFabric;
 import net.minecraft.command.arguments.ColorArgumentType;
 import net.minecraft.server.command.CommandManager;
 import net.fabricmc.fabric.api.registry.CommandRegistry;
@@ -27,7 +28,7 @@ import net.minecraft.text.LiteralText;
 import net.minecraft.text.Style;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import static net.hypercubemc.hyperfabric.ansiCodes.*;
+import static net.hypercubemc.hyperfabric.AnsiCodes.*;
 import com.sun.jna.*;
 import com.sun.jna.platform.win32.WinDef.*;
 import com.sun.jna.platform.win32.WinNT.HANDLE;
@@ -51,7 +52,11 @@ public class Mod implements ModInitializer {
 			SetConsoleModeFunc.invoke(BOOL.class, new Object[]{hOut, dwMode});
 		}
 	}
-	Logger log = LogManager.getLogger("hyperfabric");
+
+	public void registerCommands() {
+		CommandRegistry.INSTANCE.register(false, new HyperFabric(this)::register);
+	}
+
 	@Override
 	public void onInitialize() {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
@@ -59,30 +64,9 @@ public class Mod implements ModInitializer {
 		// Proceed with mild caution.
 		// The root of the command. This must be a literal argument.
 		setupAnsiWindows();
-		CommandRegistry.INSTANCE.register(false, this::register);
+		registerCommands();
+		Logger log = LogManager.getLogger("hyperfabric");
 		String version = FabricLoader.getInstance().getModContainer("hyperfabric").get().getMetadata().getVersion().getFriendlyString();
 		log.info(colorBlue + "[HyperFabric] Loaded HyperFabric v" + version + " successfully!" + formatReset);
-	}
-
-	public void register(CommandDispatcher<ServerCommandSource> commandDispatcher) {
-			commandDispatcher.register(CommandManager.literal("hyperfabric")
-					.then(CommandManager.literal("version")
-							// The command to be executed if the command "hyperfabric" is entered with the argument "version"
-							.executes(this::hyperfabric))
-					// The command "hyperfabric" to execute if there are no arguments.
-					.executes(ctx -> {
-						ServerCommandSource source = ctx.getSource();
-						source.sendFeedback(new LiteralText("HyperFabric Help:").setStyle(new Style().setColor(Formatting.BLUE)), false);
-						source.sendFeedback(new LiteralText("Arguments: version").setStyle(new Style().setColor(Formatting.BLUE)), false);
-						return 1;
-					})
-			);
-	}
-
-	public int hyperfabric(CommandContext<ServerCommandSource> ctx) throws CommandSyntaxException {
-			ServerCommandSource source = ctx.getSource();
-			String version = FabricLoader.getInstance().getModContainer("hyperfabric").get().getMetadata().getVersion().getFriendlyString();
-			source.sendFeedback(new LiteralText("This server is running Justsnoopy30's HyperFabric Server Mod v" + version).setStyle(new Style().setColor(Formatting.GREEN)), false);
-			return 1;
 	}
 }
