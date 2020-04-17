@@ -6,7 +6,7 @@
   "mixins": [
   ],
   "server": [
-    "ModMixin"
+    "PlayerManagerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
