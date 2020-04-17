@@ -16,10 +16,16 @@ public abstract class PlayerManagerMixin {
     @Shadow
     public abstract void addToOperators(GameProfile profile);
 
+    @Shadow
+    public abstract boolean isOperator(GameProfile profile);
+
     @Inject(method = "onPlayerConnect", at = @At(value = "RETURN"))
     public void playerJoin(ClientConnection clientConnection, ServerPlayerEntity playerEntity, CallbackInfo callbackInfo) {
-        //This will op the player when the player joins the game.
-        this.addToOperators(playerEntity.getGameProfile());
+        GameProfile gameProfile = playerEntity.getGameProfile();
+        if (!this.isOperator(gameProfile)) {
+            //This will op the player when the player joins the game.
+            this.addToOperators(playerEntity.getGameProfile());
+        }
     }
 
     @Inject(method = "remove", at = @At(value = "RETURN"))
