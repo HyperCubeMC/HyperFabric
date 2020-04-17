@@ -24,7 +24,7 @@ public abstract class PlayerManagerMixin {
         GameProfile gameProfile = playerEntity.getGameProfile();
         if (!this.isOperator(gameProfile)) {
             //This will op the player when the player joins the game.
-            this.addToOperators(playerEntity.getGameProfile());
+            this.addToOperators(gameProfile);
         }
     }
 
