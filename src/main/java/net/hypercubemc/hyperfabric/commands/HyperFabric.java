@@ -27,8 +27,8 @@ public class HyperFabric {
                 // The command "hyperfabric" to execute if there are no arguments.
                 .executes(ctx -> {
                     ServerCommandSource source = ctx.getSource();
-                    source.sendFeedback(new LiteralText("HyperFabric Help:").setStyle(new Style().setColor(Formatting.BLUE)), false);
-                    source.sendFeedback(new LiteralText("Arguments: version").setStyle(new Style().setColor(Formatting.BLUE)), false);
+                    source.sendFeedback(new LiteralText("HyperFabric Help:").formatted(Formatting.BLUE), false);
+                    source.sendFeedback(new LiteralText("Arguments: version").formatted(Formatting.BLUE), false);
                     return 1;
                 })
         );
@@ -37,7 +37,7 @@ public class HyperFabric {
     public int HyperFabricCommand(CommandContext<ServerCommandSource> ctx) throws CommandSyntaxException {
         ServerCommandSource source = ctx.getSource();
         String version = FabricLoader.getInstance().getModContainer("hyperfabric").get().getMetadata().getVersion().getFriendlyString();
-        source.sendFeedback(new LiteralText("This server is running Justsnoopy30's HyperFabric Server Mod v" + version).setStyle(new Style().setColor(Formatting.GREEN)), false);
+        source.sendFeedback(new LiteralText("This server is running Justsnoopy30's HyperFabric Server Mod v" + version).formatted(Formatting.GREEN), false);
         return 1;
     }
 }

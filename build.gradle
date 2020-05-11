@@ -1,7 +1,7 @@
 import java.util.stream.Collectors
 import java.nio.file.FileSystems
 plugins {
-	id 'fabric-loom' version '0.2.6-SNAPSHOT'
+	id 'fabric-loom' version '0.2.7-SNAPSHOT'
 	id 'maven-publish'
 }
 
@@ -94,4 +94,3 @@ publishing {
 		// mavenLocal()
 	}
 }
-

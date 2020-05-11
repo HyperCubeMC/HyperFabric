@@ -1,31 +1,10 @@
 package net.hypercubemc.hyperfabric;
 
-import com.mojang.brigadier.Command;
-import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.arguments.IntegerArgumentType;
-import com.mojang.brigadier.context.CommandContext;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.loader.api.FabricLoader;
 
-import static com.mojang.brigadier.arguments.IntegerArgumentType.integer;
-import static com.mojang.brigadier.arguments.StringArgumentType.*;
-import static net.minecraft.command.arguments.ColorArgumentType.getColor;
-import static net.minecraft.server.command.CommandManager.literal; // literal("foo")
-import static net.minecraft.server.command.CommandManager.argument; // argument("bar", word())
-import static net.minecraft.server.command.CommandManager.*; // Import everything
-
 import net.hypercubemc.hyperfabric.commands.HyperFabric;
-import net.minecraft.command.arguments.ColorArgumentType;
-import net.minecraft.server.command.CommandManager;
 import net.fabricmc.fabric.api.registry.CommandRegistry;
-import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.Text;
-import net.minecraft.util.Formatting;
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.Style;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import static net.hypercubemc.hyperfabric.AnsiCodes.*;
@@ -62,7 +41,6 @@ public class Mod implements ModInitializer {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
-		// The root of the command. This must be a literal argument.
 		setupAnsiWindows();
 		registerCommands();
 		Logger log = LogManager.getLogger("hyperfabric");
