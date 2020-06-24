@@ -36,6 +36,10 @@ public class Mod implements ModInitializer {
 		CommandRegistry.INSTANCE.register(false, new HyperFabric(this)::register);
 	}
 
+    private void setupTriggerCommandAliases() {
+
+    }
+
 	@Override
 	public void onInitialize() {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
@@ -43,6 +47,7 @@ public class Mod implements ModInitializer {
 		// Proceed with mild caution.
 		setupAnsiWindows();
 		registerCommands();
+		setupTriggerCommandAliases();
 		Logger log = LogManager.getLogger("hyperfabric");
 		String version = FabricLoader.getInstance().getModContainer("hyperfabric").get().getMetadata().getVersion().getFriendlyString();
 		log.info(colorBlue + "[HyperFabric] Loaded HyperFabric v" + version + " successfully!" + formatReset);

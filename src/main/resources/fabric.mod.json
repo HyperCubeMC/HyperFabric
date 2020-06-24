@@ -33,6 +33,6 @@
     "fabric": ">=0.13.1+build.370-1.16",
     "fabricloader": ">=0.8.8+build.202",
     "fabric-command-api-v1": ">=1.0.8",
-    "minecraft": ">=1.16"
+    "minecraft": ">=1.16.1"
   }
 }
