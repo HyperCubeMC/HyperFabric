@@ -1,13 +1,14 @@
 package net.hypercubemc.hyperfabric;
 
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.loader.api.FabricLoader;
 
-import net.hypercubemc.hyperfabric.commands.HyperFabric;
-import net.fabricmc.fabric.api.registry.CommandRegistry;
+import net.hypercubemc.hyperfabric.commands.HyperFabricCommand;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import static net.hypercubemc.hyperfabric.AnsiCodes.*;
+
 import com.sun.jna.*;
 import com.sun.jna.platform.win32.WinDef.*;
 import com.sun.jna.platform.win32.WinNT.HANDLE;
@@ -33,7 +34,10 @@ public class Mod implements ModInitializer {
 	}
 
 	public void registerCommands() {
-		CommandRegistry.INSTANCE.register(false, new HyperFabric(this)::register);
+		CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
+			HyperFabricCommand hyperFabricCommand = new HyperFabricCommand(this);
+			hyperFabricCommand.register(dispatcher);
+		});
 	}
 
     private void setupTriggerCommandAliases() {
