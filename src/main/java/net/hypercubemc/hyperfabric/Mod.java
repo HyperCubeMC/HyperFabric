@@ -1,13 +1,24 @@
 package net.hypercubemc.hyperfabric;
 
+import com.mojang.brigadier.Command;
+import com.mojang.brigadier.tree.CommandNode;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.event.server.ServerStartCallback;
 import net.fabricmc.loader.api.FabricLoader;
+import net.minecraft.scoreboard.Scoreboard;
+import net.minecraft.scoreboard.ScoreboardObjective;
 
 import net.hypercubemc.hyperfabric.commands.HyperFabricCommand;
+import net.minecraft.server.command.CommandManager;
+import net.minecraft.server.command.ServerCommandSource;
+import net.minecraft.text.LiteralText;
+import net.minecraft.util.Formatting;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
 import static net.hypercubemc.hyperfabric.AnsiCodes.*;
+import static net.minecraft.server.command.CommandManager.literal;
 
 import com.sun.jna.*;
 import com.sun.jna.platform.win32.WinDef.*;
@@ -41,7 +52,39 @@ public class Mod implements ModInitializer {
 	}
 
     private void setupTriggerCommandAliases() {
+		Logger log = LogManager.getLogger("hyperfabric");
+		ServerStartCallback.EVENT.register(server -> {
+//			for (String usage : server.getCommandManager().getDispatcher().getAllUsage(server.getCommandManager().getDispatcher().getRoot().getChild("trigger"), server.getCommandSource(), false)) {
+//				log.info(colorGreen + usage + formatReset);
+//			}
+//			server.getCommandManager().getDispatcher().getSmartUsage(server.getCommandManager().getDispatcher().getRoot().getChild("trigger"), server.getCommandSource()).forEach((k, v) -> {
+//				log.info(colorBlue + k + ": " + v + formatReset);
+//			});
 
+			Scoreboard scoreboard = server.getScoreboard();
+			for (ScoreboardObjective objective: scoreboard.getObjectives()) {
+				if (objective.getCriterion().getName().equals("trigger")) {
+//					log.info("Scoreboard objective: " + objective.getName());
+//					log.info("Scoreboard objective is enabled for snoopy: " + scoreboard.playerHasObjective("Justsnoopy30", objective));
+					String commandName = objective.getName();
+					server.getCommandManager().getDispatcher().register(literal(commandName)
+							.then(literal("add")
+									.executes(ctx -> {
+										return server.getCommandManager().execute(ctx.getSource(), "trigger " + commandName + " add");
+									})
+							)
+							.then(literal("set")
+									.executes(ctx -> {
+										return server.getCommandManager().execute(ctx.getSource(), "trigger " + commandName + " set");
+									})
+							)
+							.executes(ctx -> {
+								return server.getCommandManager().execute(ctx.getSource(), "trigger " + commandName);
+							})
+					);
+				}
+			}
+		});
     }
 
 	@Override
