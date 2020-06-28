@@ -1,6 +1,7 @@
 package net.hypercubemc.hyperfabric;
 
 import com.mojang.brigadier.Command;
+import com.mojang.brigadier.arguments.IntegerArgumentType;
 import com.mojang.brigadier.tree.CommandNode;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
@@ -72,11 +73,23 @@ public class Mod implements ModInitializer {
 									.executes(ctx -> {
 										return server.getCommandManager().execute(ctx.getSource(), "trigger " + commandName + " add");
 									})
+									.then(CommandManager.argument("value", IntegerArgumentType.integer())
+											.executes((ctx) -> {
+												int integerArg = IntegerArgumentType.getInteger(ctx, "value");
+												return server.getCommandManager().execute(ctx.getSource(), "trigger " + commandName + " add " + integerArg);
+											})
+									)
 							)
 							.then(literal("set")
 									.executes(ctx -> {
 										return server.getCommandManager().execute(ctx.getSource(), "trigger " + commandName + " set");
 									})
+									.then(CommandManager.argument("value", IntegerArgumentType.integer())
+											.executes((ctx) -> {
+												int integerArg = IntegerArgumentType.getInteger(ctx, "value");
+												return server.getCommandManager().execute(ctx.getSource(), "trigger " + commandName + " set " + integerArg);
+											})
+									)
 							)
 							.executes(ctx -> {
 								return server.getCommandManager().execute(ctx.getSource(), "trigger " + commandName);

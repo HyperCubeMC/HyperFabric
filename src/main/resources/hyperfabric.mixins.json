@@ -6,8 +6,9 @@
   "mixins": [
   ],
   "server": [
-    "PlayerManagerMixin",
-    "OPSpawnProtectionMixin"
+    "OPSpawnProtectionMixin",
+    "OPFillCommandSpawnProtectionMixin",
+    "PlayerManagerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
